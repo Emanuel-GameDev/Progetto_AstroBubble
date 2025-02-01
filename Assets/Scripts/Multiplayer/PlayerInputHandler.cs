@@ -8,13 +8,11 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
-    [SerializeField]
-    private Vector2 startPos;
-
-    private InputAction _inputAction;
-    
     private PlayerController _playerController;
     private PlayerConfiguration _playerConfig;
+    
+    private InputAction _moveAction;
+    private InputAction _rotateAction;
 
     private void Awake()
     {
@@ -31,21 +29,27 @@ public class PlayerInputHandler : MonoBehaviour
     {
         _playerConfig = playerConfiguration;
                 
-        _inputAction = _playerConfig.Input.actions.FindActionMap("Player").FindAction("Move");
-        _inputAction.performed += OnMove;
-        _inputAction.canceled += OnMove;
-        _inputAction.Enable();
+        _moveAction = _playerConfig.Input.actions.FindActionMap("Player").FindAction("Move");
+        _moveAction.performed += OnMove;
+        _moveAction.canceled += OnMove;
+        _moveAction.Enable();
+        
+        _rotateAction = _playerConfig.Input.actions.FindActionMap("Player").FindAction("Rotate");
+        _rotateAction.performed += OnRotate;
+        _rotateAction.Enable();
         
         // Change color in the "Visual" child of the prefab
         GetComponentInChildren<SpriteRenderer>().color = playerConfiguration.PlayerColor;
 
     }
 
-    public void OnMove(InputAction.CallbackContext ctx)
+    private void OnMove(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-            _playerController.OnMove(ctx.ReadValue<Vector2>());
-        else if (ctx.canceled)
-            _playerController.OnMove(Vector2.zero);
+        _playerController.OnMove(ctx.ReadValue<Vector2>());
+    }
+
+    private void OnRotate(InputAction.CallbackContext ctx)
+    {
+        _playerController.OnRotate(ctx.ReadValue<Vector2>());
     }
 }
