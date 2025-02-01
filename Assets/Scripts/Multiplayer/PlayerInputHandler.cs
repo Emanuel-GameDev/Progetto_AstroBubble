@@ -35,6 +35,10 @@ public class PlayerInputHandler : MonoBehaviour
         _inputAction.performed += OnMove;
         _inputAction.canceled += OnMove;
         _inputAction.Enable();
+        
+        // Change color in the "Visual" child of the prefab
+        GetComponentInChildren<SpriteRenderer>().color = playerConfiguration.PlayerColor;
+
     }
 
     public void OnMove(InputAction.CallbackContext ctx)

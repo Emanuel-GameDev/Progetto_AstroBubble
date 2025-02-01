@@ -43,8 +43,15 @@ public class PlayerSetupController : MonoBehaviour
         _inputAction.Enable();
         
         SetPlayerTexts();
+        SetSetupCardColor();
     }
-    
+
+    private void SetSetupCardColor()
+    {
+        PlayerConfiguration playerConfig = PlayerConfigurationManager.Instance.GetPlayerConfig(_playerIndex);
+        GetComponent<Image>().color = playerConfig.PlayerColor;
+    }
+
     private void SetPlayerTexts()
     {
         string controlScheme = _playerInput.currentControlScheme;

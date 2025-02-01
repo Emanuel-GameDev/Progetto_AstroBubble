@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 /// <summary>
 /// This script spawns the menu for every player that joins the game in the UI scene
@@ -25,6 +26,7 @@ public class SpawnPlayerSetup : MonoBehaviour
         
         var menu = Instantiate(playerSetupPrefab, rootMenu.transform);
         _playerInput.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
+        
         menu.GetComponent<PlayerSetupController>().SetPlayerInput(_playerInput);
     }
 }

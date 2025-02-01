@@ -13,6 +13,11 @@ public class PlayerConfigurationManager : MonoBehaviour
 {
     [SerializeField]
     private int maxPlayers = 2;
+
+    [SerializeField,
+     Tooltip(
+         "List of the player colors, OnPlayerJoin the respective color will be loaded\n(Ex. Player0 = ListElement0)")]
+    private List<Color> playerColors = new List<Color>();
     
     private List<PlayerConfiguration> _playerConfigs;
     
@@ -55,7 +60,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
         if (_playerConfigs.All(p => p.PlayerIndex != input.playerIndex))
         {
-            _playerConfigs.Add(new PlayerConfiguration(input));
+            _playerConfigs.Add(new PlayerConfiguration(input, playerColors[input.playerIndex]));
             input.gameObject.transform.SetParent(transform);
         }
     }
@@ -63,6 +68,11 @@ public class PlayerConfigurationManager : MonoBehaviour
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         return _playerConfigs;
+    }
+
+    public PlayerConfiguration GetPlayerConfig(int playerIndex)
+    {
+        return _playerConfigs[playerIndex]; 
     }
 }
 
@@ -73,13 +83,15 @@ public class PlayerConfiguration
 {
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
+    public Color PlayerColor { get; set; }
     public string ControlScheme { get; set; }
     public bool IsReady { get; set; }
 
-    public PlayerConfiguration(PlayerInput input)
+    public PlayerConfiguration(PlayerInput input, Color color)
     {
         Input = input;
         PlayerIndex = input.playerIndex;
         ControlScheme = input.currentControlScheme;
+        PlayerColor = color;
     }
 }
