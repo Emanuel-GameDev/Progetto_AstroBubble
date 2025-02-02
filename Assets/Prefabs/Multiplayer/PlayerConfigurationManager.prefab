@@ -48,11 +48,11 @@ MonoBehaviour:
   m_NotificationBehavior: 2
   m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7665730546757150773}
         m_TargetAssemblyTypeName: PlayerConfigurationManager, Assembly-CSharp
         m_MethodName: OnPlayerJoined
         m_Mode: 0
@@ -70,13 +70,29 @@ MonoBehaviour:
   m_JoinAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Join
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: 8b1097c6-c870-42f6-8a45-892f77005f51
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 9e1e912b-02dc-4e7b-86ca-8c3d2e000351
+        m_Path: <Keyboard>/space
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 6c5d129e-8eab-46d6-ade2-17533072bcce
+        m_Path: <Gamepad>/start
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
   m_PlayerPrefab: {fileID: 7298439444964753719, guid: 9661eeea041358843a51553dab6b1a0a, type: 3}
@@ -101,4 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80381d105f43394c906a98f0e254e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayers: 2
+  maxPlayers: 1
+  playerColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}

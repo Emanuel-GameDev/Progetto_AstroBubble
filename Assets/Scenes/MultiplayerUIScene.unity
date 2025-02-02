@@ -642,15 +642,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3620008789253454265, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5218577
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3620008789253454265, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.909959
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3620008789253454265, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.12144364
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3620008789253454265, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -680,94 +680,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinBehavior
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_MaxPlayerCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_Name
-      value: Join
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[0].m_Id
-      value: 9e1e912b-02dc-4e7b-86ca-8c3d2e000351
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[1].m_Id
-      value: 6c5d129e-8eab-46d6-ade2-17533072bcce
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[0].m_Path
-      value: <Keyboard>/space
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[1].m_Path
-      value: <Gamepad>/start
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1997433870}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[0].m_Action
-      value: Join
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[1].m_Action
-      value: Join
-      objectReference: {fileID: 0}
-    - target: {fileID: 6220781201993236297, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPlayerJoined
-      objectReference: {fileID: 0}
-    - target: {fileID: 7665730546757150773, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: maxPlayers
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7665730546757150773, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: playerColors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7665730546757150773, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: playerColors.Array.data[0].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7665730546757150773, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: playerColors.Array.data[0].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7665730546757150773, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: playerColors.Array.data[1].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7665730546757150773, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-      propertyPath: playerColors.Array.data[1].b
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
---- !u!114 &1997433870 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7665730546757150773, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
-  m_PrefabInstance: {fileID: 1842961121}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a80381d105f43394c906a98f0e254e27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
