@@ -10,8 +10,7 @@ public class PlayerLevelHandler : MonoBehaviour
     [SerializeField] private float grabExpRange = 1f;
 
     
-    [SerializeField, Tooltip("trueLevelUpThreshold = levelUpThreshold * level * thresholdMultiplayer")]
-    private float trueLevelUpThreshold = 300f;
+    private float TrueLevelUpThreshold => levelUpThreshold * level * thresholdMultiplayer;
     [SerializeField] private float levelUpThreshold = 300f;
     [SerializeField] private float thresholdMultiplayer = 1f;
 
@@ -30,11 +29,6 @@ public class PlayerLevelHandler : MonoBehaviour
         // BarsUI.instance.SetMaxExp((float)_trueLevelUpThreshold, GetComponentInParent<PlayerInput>().playerIndex);
     }
 
-    void Update()
-    {
-        trueLevelUpThreshold = levelUpThreshold * level * thresholdMultiplayer;
-    }
-
     public void AddExp(float expToAdd)
     {
         actualExp += expToAdd;
@@ -42,7 +36,7 @@ public class PlayerLevelHandler : MonoBehaviour
         //BarsUI.instance.SetExp(_actualExp, GetComponentInParent<PlayerInput>().playerIndex);
 
 
-        if (actualExp >= trueLevelUpThreshold)
+        if (actualExp >= TrueLevelUpThreshold)
         {
             level++;
             actualExp = 0f;
@@ -51,21 +45,21 @@ public class PlayerLevelHandler : MonoBehaviour
             //{
             //    Debug.Log($"Registered methods: {EventManager.OnPlayerLevelUp.GetInvocationList().Length}");
             //}
-            //EventManager.OnPlayerLevelUp?.Invoke(_level, this);
+            PubSub.Publish("PlayerLevelUp", level, this);
 
             //SI lo so che � sbagliato perch� c'� l'evento sopra
             //GameHUDmanager.instance.UpdateLvlText(this, _level);
         }
     }
 
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if(other.gameObject.TryGetComponent(out ExpItem expItem))
-    //     {
-    //         AddExp(expItem.EXPValue);
-    //         Destroy(expItem.gameObject);
-    //     }
-    // }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // if(other.gameObject.TryGetComponent(out ExpItem expItem))
+        // {
+        //     AddExp(expItem.EXPValue);
+        //     Destroy(expItem.gameObject);
+        // }
+    }
 
     public void ChangeGrabRange()
     {
