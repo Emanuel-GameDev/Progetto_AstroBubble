@@ -36,6 +36,7 @@ public class PlayerInputHandler : MonoBehaviour
         
         _rotateAction = _playerConfig.Input.actions.FindActionMap("Player").FindAction("Rotate");
         _rotateAction.performed += OnRotate;
+        _rotateAction.canceled += OnRotate;
         _rotateAction.Enable();
         
         // Change color in the "Visual" child of the prefab
@@ -50,6 +51,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnRotate(InputAction.CallbackContext ctx)
     {
-        _playerController.OnRotate(ctx.ReadValue<Vector2>());
+        bool canceled = false;
+        
+        if (ctx.canceled)
+            canceled = true;
+        else
+            canceled = false;
+        
+        _playerController.OnRotate(ctx.ReadValue<Vector2>(), canceled);
     }
 }

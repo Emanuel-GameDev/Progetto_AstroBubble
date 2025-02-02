@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -22,6 +21,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("Offset to the rotation value \n(Ex. 1 * var = distance from player)")]
     private float sightDistanceOffset = .5f;
     
+    [SerializeField]
+    private bool useAlternativeRotation = false;
+    [SerializeField]
+    private GameObject alternativeSightObject;
+    [SerializeField]
+    private float rotationSpeed = 5f;
+
+    [SerializeField] private float rotationInput;
+    
     
     private Vector2 _moveDirection;
 
@@ -29,6 +37,12 @@ public class PlayerController : MonoBehaviour
     {
         // Move player
         transform.Translate(new Vector2(_moveDirection.x, _moveDirection.y) * (moveSpeed * Time.deltaTime));
+        
+        //Alternative rotation
+        if (useAlternativeRotation)
+        {
+            alternativeSightObject.transform.Rotate(0f, 0f, -rotationInput * rotationSpeed * Time.deltaTime);
+        }
     }
     
     /// <summary>
@@ -45,18 +59,24 @@ public class PlayerController : MonoBehaviour
     /// Called from the playerInputHandler, receives rotation input
     /// </summary>
     /// <param name="rotation"></param>
-    public void OnRotate(Vector2 rotation)
+    public void OnRotate(Vector2 rotation, bool canceled)
     {
         /*
          * if (rotation != Vector2.zero
          * ishooting = true;
          */
-        Debug.Log(rotation);
         
-        if (rotation != Vector2.zero)
+        if (!useAlternativeRotation)
         {
             Vector2 rotationVector = rotation.normalized * sightDistanceOffset;
             sightObject.transform.localPosition = rotationVector;
+        }
+        else
+        {
+            if (canceled)
+                rotationInput = 0;
+            else
+                rotationInput = rotation.x;
         }
     }
 }
