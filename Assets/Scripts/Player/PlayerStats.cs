@@ -1,13 +1,17 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : MonoBehaviour, IDamageable
 {
     [Header("HEALTH")]
     [SerializeField] private float health = 100;
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private float healthLossRate = 1f;
+    
+    [Header("DAMAGE")]
+    [SerializeField, Tooltip("Player is invincible for a certain amount of time after being hit")]
+    private float invincibilityTime = 2f;
+    private bool _invincible = false;
     
     [Header("OXYGEN")]
     [SerializeField] private float oxygen = 100f;
@@ -16,14 +20,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float oxygenLossRate = 1f;
     [SerializeField] private float oxygenGainRate = 2f;
     
-    [Header("BUBBLE")]
-    [SerializeField] private bool carryBubble = false;
-    public bool CarryBubble => carryBubble;
-    [SerializeField] private float invincibilityTime = 2f;
-    [SerializeField] private bool invincible = false;
-
-    [SerializeField] GameObject schermataMortePrefab;
-    private GameObject schermataMorte;
+    
+    private bool _carryBubble = false;
+    public bool CarryBubble => _carryBubble;
 
     private bool _isInPause = false;
 
@@ -41,16 +40,18 @@ public class PlayerStats : MonoBehaviour
     {
         if(_isInPause)
             return;
-
-        if(!carryBubble && oxygen > 0)
+        
+        // Oxygen variation over time
+        if(!_carryBubble && oxygen > 0)
         {
             oxygen -= oxygenLossRate * Time.deltaTime;
         }
-        else if(carryBubble && oxygen < maxOxygen)
+        else if(_carryBubble && oxygen < maxOxygen)
         {
             oxygen += oxygenGainRate * Time.deltaTime;
         }
-
+        
+        // Health decrease over time
         if(oxygen <= 0)
         {
             health -= healthLossRate * Time.deltaTime;
@@ -65,14 +66,14 @@ public class PlayerStats : MonoBehaviour
         //BarsUI.instance.SetOxygen(_oxygen, GetComponent<PlayerInput>().playerIndex);
     }
 
-    public void SetCarryBubble(bool isCarringBubble)
+    public void SetCarryBubble(bool isCarryingBubble)
     {
-        carryBubble = isCarringBubble;
+        _carryBubble = isCarryingBubble;
     }
 
     public void TakeDamage(float damage)
     {
-        if(invincible)
+        if(_invincible)
             return;
 
         health -= damage;
@@ -85,7 +86,7 @@ public class PlayerStats : MonoBehaviour
         }
         else
         {
-            invincible = true;
+            _invincible = true;
             InvincibilityTimer().Forget();
         }
     }
@@ -93,21 +94,17 @@ public class PlayerStats : MonoBehaviour
     private async UniTask InvincibilityTimer()
     {
         await UniTask.WaitForSeconds(invincibilityTime, true);
-        invincible = false;
+        _invincible = false;
     }
 
 
-    private void SetBubbleCarring(GameObject player)
+    private void SetBubbleCarrying(GameObject player)
     {
-        // Debug.Log("Player: " + player.name);
-        if(player == gameObject)
-        {
-            // Debug.Log("TRUE Player: " + player.name);
-            if(carryBubble)
-                carryBubble = false;
-            else
-                carryBubble = true;
-        }
+        _carryBubble = !_carryBubble;
+        // if(carryBubble)
+        //     carryBubble = false;
+        // else
+        //     carryBubble = true;
     }
 
     public void Pause()

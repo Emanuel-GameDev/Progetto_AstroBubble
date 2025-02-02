@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6259388511657532175}
   - component: {fileID: 4296782045812421898}
   - component: {fileID: 7655744388813931959}
+  - component: {fileID: 5040295626388271972}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -62,6 +63,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03fb0e1f1037744bb6b5eea98521358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5040295626388271972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549049655226686437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f74f41e2e3ed545997923889901977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  healthLossRate: 1
+  invincibilityTime: 2
+  oxygen: 100
+  maxOxygen: 100
+  oxygenLossRate: 1
+  oxygenGainRate: 2
 --- !u!1 &5492418708664488955
 GameObject:
   m_ObjectHideFlags: 0
