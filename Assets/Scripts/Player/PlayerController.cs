@@ -54,11 +54,12 @@ public class PlayerController : MonoBehaviour
         // Set movement var
         _moveDirection = new Vector2(movement.x, movement.y);
     }
-    
+
     /// <summary>
     /// Called from the playerInputHandler, receives rotation input
     /// </summary>
     /// <param name="rotation"></param>
+    /// <param name="canceled"></param>
     public void OnRotate(Vector2 rotation, bool canceled)
     {
         /*
@@ -68,8 +69,16 @@ public class PlayerController : MonoBehaviour
         
         if (!useAlternativeRotation)
         {
-            Vector2 rotationVector = rotation.normalized * sightDistanceOffset;
-            sightObject.transform.localPosition = rotationVector;
+            // Vector2 rotationVector = rotation.normalized * sightDistanceOffset;
+            // sightObject.transform.localPosition = rotationVector;
+            if (rotation.x > 0) // Destra
+                sightObject.transform.localPosition = new Vector3(1, 0, 0);
+            else if (rotation.x < 0) // Sinistra
+                sightObject.transform.localPosition = new Vector3(-1, 0, 0);
+            else if (rotation.y > 0) // Su
+                sightObject.transform.localPosition = new Vector3(0, 1, 0);
+            else if (rotation.y < 0) // Giù
+                sightObject.transform.localPosition = new Vector3(0, -1, 0);
         }
         else
         {
