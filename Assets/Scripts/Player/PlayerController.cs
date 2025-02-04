@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
          * ishooting = true;
          */
         if (rotation.x != 0 && rotation.y != 0) return;
+        
         Vector3 newPosition = new Vector3(rotation.x, rotation.y, 0) * sightDistanceOffset;
         sightObject.transform.localPosition = newPosition;
     }
