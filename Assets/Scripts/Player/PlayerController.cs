@@ -21,15 +21,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("Offset to the rotation value \n(Ex. 1 * var = distance from player)")]
     private float sightDistanceOffset = .5f;
     
-    [SerializeField]
-    private bool useAlternativeRotation = false;
-    [SerializeField]
-    private GameObject alternativeSightObject;
-    [SerializeField]
-    private float rotationSpeed = 5f;
-
-    [SerializeField] private float rotationInput;
-    
     
     private Vector2 _moveDirection;
 
@@ -37,12 +28,6 @@ public class PlayerController : MonoBehaviour
     {
         // Move player
         transform.Translate(new Vector2(_moveDirection.x, _moveDirection.y) * (moveSpeed * Time.deltaTime));
-        
-        //Alternative rotation
-        if (useAlternativeRotation)
-        {
-            alternativeSightObject.transform.Rotate(0f, 0f, -rotationInput * rotationSpeed * Time.deltaTime);
-        }
     }
     
     /// <summary>
@@ -60,32 +45,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     /// <param name="rotation"></param>
     /// <param name="canceled"></param>
-    public void OnRotate(Vector2 rotation, bool canceled)
+    public void OnRotate(Vector2 rotation)
     {
         /*
          * if (rotation != Vector2.zero
          * ishooting = true;
          */
-        
-        if (!useAlternativeRotation)
-        {
-            // Vector2 rotationVector = rotation.normalized * sightDistanceOffset;
-            // sightObject.transform.localPosition = rotationVector;
-            if (rotation.x > 0) // Destra
-                sightObject.transform.localPosition = new Vector3(1, 0, 0);
-            else if (rotation.x < 0) // Sinistra
-                sightObject.transform.localPosition = new Vector3(-1, 0, 0);
-            else if (rotation.y > 0) // Su
-                sightObject.transform.localPosition = new Vector3(0, 1, 0);
-            else if (rotation.y < 0) // Giù
-                sightObject.transform.localPosition = new Vector3(0, -1, 0);
-        }
-        else
-        {
-            if (canceled)
-                rotationInput = 0;
-            else
-                rotationInput = rotation.x;
-        }
+        if (rotation.x != 0 && rotation.y != 0) return;
+        Vector3 newPosition = new Vector3(rotation.x, rotation.y, 0) * sightDistanceOffset;
+        sightObject.transform.localPosition = newPosition;
     }
 }

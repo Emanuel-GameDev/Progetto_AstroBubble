@@ -14,7 +14,7 @@ public class LevelInitializer : MonoBehaviour
 
     private void Start()
     {
-        var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
+        var playerConfigs = PlayerConfigurationManager.Instance.PlayerConfigs.ToArray();
 
         for (int i = 0; i < playerConfigs.Length; i++)
         {

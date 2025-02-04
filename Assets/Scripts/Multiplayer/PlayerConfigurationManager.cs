@@ -13,6 +13,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 {
     [SerializeField]
     private int maxPlayers = 2;
+    public int MaxPlayers => maxPlayers;
 
     [SerializeField,
      Tooltip(
@@ -20,7 +21,10 @@ public class PlayerConfigurationManager : MonoBehaviour
     private List<Color> playerColors = new List<Color>();
     
     private List<PlayerConfiguration> _playerConfigs;
-    
+    public List<PlayerConfiguration> PlayerConfigs => _playerConfigs;
+
+    public List<PlayerInputHandler> PlayerInputHandlers => FindObjectsByType<PlayerInputHandler>(FindObjectsSortMode.InstanceID).ToList();
+
     public static PlayerConfigurationManager Instance;
 
     private void Awake()
@@ -45,7 +49,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
         if (_playerConfigs.Count == maxPlayers && _playerConfigs.All(p => p.IsReady))
         {
-            SceneManager.LoadScene("MultiplayerGameScene");
+            SceneManager.LoadScene("GameMultiplayerScene");
         }
     }
     
@@ -63,11 +67,6 @@ public class PlayerConfigurationManager : MonoBehaviour
             _playerConfigs.Add(new PlayerConfiguration(input, playerColors[input.playerIndex]));
             input.gameObject.transform.SetParent(transform);
         }
-    }
-
-    public List<PlayerConfiguration> GetPlayerConfigs()
-    {
-        return _playerConfigs;
     }
 
     public PlayerConfiguration GetPlayerConfig(int playerIndex)
