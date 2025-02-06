@@ -598,7 +598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7665730546757150773, guid: 0364a0b7894265e4cb1184c3f9b1a9f5, type: 3}
       propertyPath: maxPlayers
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

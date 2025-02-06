@@ -1,4 +1,4 @@
-using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -22,10 +22,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("Offset to the rotation value \n(Ex. 1 * var = distance from player)")]
     private float sightDistanceOffset = .5f;
     
+    public Vector2 lastMoveDirection;
     
     private Vector2 _moveDirection;
     private SpriteRenderer _spriteRenderer;
     private bool _isFacingRight = true;
+    private bool _canMove = true;
 
     private void Start()
     {
@@ -35,7 +37,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Move player
-        transform.Translate(new Vector2(_moveDirection.x, _moveDirection.y) * (moveSpeed * Time.deltaTime));
+        if (_canMove)
+            transform.Translate(new Vector2(_moveDirection.x, _moveDirection.y) * (moveSpeed * Time.deltaTime));
         
         if (_moveDirection.x < 0 && _isFacingRight)
             Flip();
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         // Set movement var
         _moveDirection = new Vector2(movement.x, movement.y);
+        lastMoveDirection = _moveDirection;
     }
 
     /// <summary>
@@ -74,5 +78,14 @@ public class PlayerController : MonoBehaviour
     {
         _spriteRenderer.flipX = !_spriteRenderer.flipX;
         _isFacingRight = !_isFacingRight;
+    }
+
+    public async UniTask StopTask(float duration)
+    {
+        _canMove = false;
+
+        await UniTask.Delay((int)(duration * 1000));
+        
+        _canMove = true;
     }
 }
