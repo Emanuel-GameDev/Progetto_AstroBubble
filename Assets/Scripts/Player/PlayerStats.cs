@@ -11,7 +11,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [Header("DAMAGE")]
     [SerializeField, Tooltip("Player is invincible for a certain amount of time after being hit")]
     private float invincibilityTime = 2f;
-    private bool _invincible = false;
+    private bool _invincible;
     
     [Header("OXYGEN")]
     [SerializeField] private float oxygen = 100f;
@@ -21,20 +21,16 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField] private float oxygenGainRate = 2f;
     
     
-    private bool _carryBubble = false;
-    public bool CarryBubble => _carryBubble;
+    private bool _isCarryingBubble;
+    private bool _isInPause;
 
-    private bool _isInPause = false;
-
-    // void Awake()
-    // {
-    //     EventManager.OnBubbleGrabbed += SetBubbleCarring;
-    //     EventManager.OnBubbleThrown += SetBubbleCarring;
-    //
-    //     BarsUI.instance.SetMaxHealth(_maxHealth, GetComponent<PlayerInput>().playerIndex);
-    //     BarsUI.instance.SetMaxOxygen(_maxOxygen, GetComponent<PlayerInput>().playerIndex);
-    //     BarsUI.instance.SetExp((float)0, GetComponent<PlayerInput>().playerIndex);
-    // }
+    private void Start()
+    {
+//     BarsUI.instance.SetMaxHealth(_maxHealth, GetComponent<PlayerInput>().playerIndex);
+//     BarsUI.instance.SetMaxOxygen(_maxOxygen, GetComponent<PlayerInput>().playerIndex);
+//     BarsUI.instance.SetExp((float)0, GetComponent<PlayerInput>().playerIndex);
+    }
+    
 
     void Update()
     {
@@ -42,11 +38,11 @@ public class PlayerStats : MonoBehaviour, IDamageable
             return;
         
         // Oxygen variation over time
-        if(!_carryBubble && oxygen > 0)
+        if(!_isCarryingBubble && oxygen > 0)
         {
             oxygen -= oxygenLossRate * Time.deltaTime;
         }
-        else if(_carryBubble && oxygen < maxOxygen)
+        else if(_isCarryingBubble && oxygen < maxOxygen)
         {
             oxygen += oxygenGainRate * Time.deltaTime;
         }
@@ -66,9 +62,9 @@ public class PlayerStats : MonoBehaviour, IDamageable
         //BarsUI.instance.SetOxygen(_oxygen, GetComponent<PlayerInput>().playerIndex);
     }
 
-    public void SetCarryBubble(bool isCarryingBubble)
+    public void SetCarryingBubble(bool value)
     {
-        _carryBubble = isCarryingBubble;
+        _isCarryingBubble = value;
     }
 
     public void TakeDamage(float damage)
@@ -96,27 +92,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         await UniTask.WaitForSeconds(invincibilityTime, true);
         _invincible = false;
     }
-
-
-    private void SetBubbleCarrying(GameObject player)
-    {
-        _carryBubble = !_carryBubble;
-        // if(carryBubble)
-        //     carryBubble = false;
-        // else
-        //     carryBubble = true;
-    }
-
-    public void Pause()
-    {
-        _isInPause = true;
-    }
-
-    public void Unpause()
-    {
-        _isInPause = false;
-    }
-
+    
     public void TakeOxygen(float damage)
     {
         oxygen -= damage;

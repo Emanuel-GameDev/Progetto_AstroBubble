@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -9,6 +10,13 @@ public class BubbleGrabber : MonoBehaviour
     
     private Bubble _bubbleCarried;
     
+    private BubbleGrabbedEvent _bubbleGrabbedEvent;
+
+    private void Start()
+    {
+        _bubbleGrabbedEvent = new BubbleGrabbedEvent();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.TryGetComponent(out Bubble bubble))
@@ -24,7 +32,6 @@ public class BubbleGrabber : MonoBehaviour
             
             if (bubble.BubbleCancellationTokenSource != null)
             {
-                _bubbleCarried.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
                 bubble.BubbleCancellationTokenSource.Cancel();
                 bubble.BubbleCancellationTokenSource = null;
             }
@@ -32,7 +39,8 @@ public class BubbleGrabber : MonoBehaviour
             _bubbleCarried.gameObject.transform.SetParent(transform.parent, false);
             _bubbleCarried.gameObject.transform.localPosition = Vector3.zero;
 
-            //PubSub.Publish<GameObject, object>("BubbleGrabbed", transform.parent.gameObject, null);
+            _bubbleGrabbedEvent.Parent = transform.parent.gameObject;
+            GetComponentInParent<PlayerStats>().SetCarryingBubble(true);
         }
     }
 
@@ -41,8 +49,10 @@ public class BubbleGrabber : MonoBehaviour
         if(_bubbleCarried == null) return;
         
         _bubbleCarried.transform.parent = null;
+        GetComponentInParent<PlayerStats>().SetCarryingBubble(false);
+        
         _bubbleCarried.BubbleCancellationTokenSource = new CancellationTokenSource();
-        _bubbleCarried.ThrowTask(direction, _bubbleCarried.BubbleCancellationTokenSource).Forget();
+        _bubbleCarried.ThrowTask(direction, _bubbleCarried.transform.parent?.gameObject, _bubbleCarried.BubbleCancellationTokenSource).Forget();
         
         _bubbleCarried.isGrabbed = false;
         _bubbleCarried.isGrabbable = true;

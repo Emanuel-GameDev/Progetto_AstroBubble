@@ -45,7 +45,8 @@ public class PlayerLevelHandler : MonoBehaviour
             //{
             //    Debug.Log($"Registered methods: {EventManager.OnPlayerLevelUp.GetInvocationList().Length}");
             //}
-            PubSub.Publish("PlayerLevelUp", level, this);
+
+            //EventBus.Raise<PlayerLevelUpEvent>();
 
             //SI lo so che � sbagliato perch� c'� l'evento sopra
             //GameHUDmanager.instance.UpdateLvlText(this, _level);

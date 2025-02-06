@@ -6,6 +6,7 @@ public class Bubble : MonoBehaviour
 {
     public bool isGrabbed;
     public bool isGrabbable = true;
+    public CancellationTokenSource BubbleCancellationTokenSource;
 
     [SerializeField] private float speed = 10f;
     [SerializeField] private int time = 2;
@@ -14,14 +15,17 @@ public class Bubble : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
 
     [SerializeField] private AnimationCurve throwCurve;
-    
-    public CancellationTokenSource BubbleCancellationTokenSource;
 
-    public async UniTask ThrowTask(Vector2 direction, CancellationTokenSource token)
+    private BubbleDestroyedEvent _bubbleDestroyedEvent;
+
+    private void Start()
+    {
+        _bubbleDestroyedEvent = new BubbleDestroyedEvent();
+    }
+
+    public async UniTask ThrowTask(Vector2 direction, GameObject player, CancellationTokenSource token)
     {
         if (!isGrabbed) return;
-        
-        //PubSub.Publish<GameObject, object>("BubbleThrown", player, null);
         
         if(direction == Vector2.zero)
             direction = Vector2.right;
@@ -41,7 +45,6 @@ public class Bubble : MonoBehaviour
             
             if (token.IsCancellationRequested)
             {
-                Debug.Log("UniTask interrotta!");
                 rb.linearVelocity = Vector2.zero;
                 isGrabbable = true;
                 return;
@@ -62,8 +65,8 @@ public class Bubble : MonoBehaviour
         health -= damage;
         
         if (!(health <= 0)) return;
-
-        PubSub.Publish<object, object>("BubbleDestroyed", null, null);
+        
+        EventBus.Raise<BubbleDestroyedEvent>(_bubbleDestroyedEvent);
         Destroy(gameObject);
     }
 
