@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4296782045812421898}
   - component: {fileID: 7655744388813931959}
   - component: {fileID: 5040295626388271972}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7562135979894792733}
   - component: {fileID: 5328693638721640437}
   - component: {fileID: 4917337265111474720}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LevelHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7552711628193112690}
   - component: {fileID: 3654431051182755787}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 490015848774398094}
   - component: {fileID: 4468057425807150078}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

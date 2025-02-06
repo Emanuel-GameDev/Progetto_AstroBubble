@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -23,11 +24,23 @@ public class PlayerController : MonoBehaviour
     
     
     private Vector2 _moveDirection;
+    private SpriteRenderer _spriteRenderer;
+    private bool _isFacingRight = true;
+
+    private void Start()
+    {
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
 
     private void Update()
     {
         // Move player
         transform.Translate(new Vector2(_moveDirection.x, _moveDirection.y) * (moveSpeed * Time.deltaTime));
+        
+        if (_moveDirection.x < 0 && _isFacingRight)
+            Flip();
+        if (_moveDirection.x > 0 && !_isFacingRight)
+            Flip();
     }
     
     /// <summary>
@@ -44,7 +57,6 @@ public class PlayerController : MonoBehaviour
     /// Called from the playerInputHandler, receives rotation input
     /// </summary>
     /// <param name="rotation"></param>
-    /// <param name="canceled"></param>
     public void OnRotate(Vector2 rotation)
     {
         /*
@@ -55,5 +67,12 @@ public class PlayerController : MonoBehaviour
         
         Vector3 newPosition = new Vector3(rotation.x, rotation.y, 0) * sightDistanceOffset;
         sightObject.transform.localPosition = newPosition;
+    }
+    
+    
+    private void Flip()
+    {
+        _spriteRenderer.flipX = !_spriteRenderer.flipX;
+        _isFacingRight = !_isFacingRight;
     }
 }

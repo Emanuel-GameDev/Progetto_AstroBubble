@@ -13,7 +13,6 @@ public class CameraManager : MonoBehaviour
         if (targetGroup == null) return;
         
         List<PlayerInputHandler> inputs = PlayerConfigurationManager.Instance.PlayerInputHandlers; 
-        Debug.Log(inputs.Count);
 
         for (int i = 0; i < inputs.Count; i++)
         {
