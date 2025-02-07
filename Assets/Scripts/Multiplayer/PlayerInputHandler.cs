@@ -46,7 +46,7 @@ public class PlayerInputHandler : MonoBehaviour
         _throwBubbleAction.Enable();
         
         // Change color in the "Visual" child of the prefab
-        GetComponentInChildren<SpriteRenderer>().color = playerConfiguration.PlayerColor;
+        _playerController.SetVisualColor(_playerConfig.PlayerColor, true);
 
     }
 

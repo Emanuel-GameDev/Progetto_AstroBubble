@@ -26,12 +26,14 @@ public class PlayerController : MonoBehaviour
     
     private Vector2 _moveDirection;
     private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _headSpriteRenderer;
     private bool _isFacingRight = true;
     private bool _canMove = true;
 
-    private void Start()
+    private void Awake()
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _headSpriteRenderer = _spriteRenderer.transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -77,7 +79,19 @@ public class PlayerController : MonoBehaviour
     private void Flip()
     {
         _spriteRenderer.flipX = !_spriteRenderer.flipX;
+        _headSpriteRenderer.flipX = !_headSpriteRenderer.flipX;
         _isFacingRight = !_isFacingRight;
+    }
+
+    public void SetVisualColor(Color color, bool onlyHead)
+    {
+        if (onlyHead)
+            _headSpriteRenderer.color = color;
+        else
+        {
+            _spriteRenderer.color = color;
+            _headSpriteRenderer.color = color;
+        }
     }
 
     public async UniTask StopTask(float duration)
