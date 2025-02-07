@@ -19,10 +19,7 @@ public abstract class BaseWeapon : MonoBehaviour
     #endregion
 
 
-    public virtual void Shoot()
-    {
-        //Debug.Log("shoot from BaseWeapon");
-    }
+    public virtual void Shoot(Vector2 direction) { }
 
     public virtual void UpgradeTier()
     {

@@ -1,5 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pistol : BaseWeapon
@@ -110,21 +111,45 @@ public class Pistol : BaseWeapon
         }
     }
 
-    public override void Shoot()
+    public override void Shoot(Vector2 direction)
     {
-        base.Shoot();
-
+        base.Shoot(direction);
         if (!_canShoot) return;
 
         GameObject projectile = GetPooledProjectile();
-        //Fire(projectile);
+        Fire(projectile, direction);
 
         if (tierCounter == 2)
         {
             //StartCoroutine(CooldownGeneric(timeBetweenShoots));
         }
 
-        //StartCoroutine(CooldownShooting());
+        Cooldown(fireRate).Forget();
+    }
+
+    private void Fire(GameObject projectile, Vector2 direction)
+    {
+        if (!projectile) return;
+
+        _canShoot = false;
+
+        RayPistolProjectile pistolProjectile = projectile.GetComponent<RayPistolProjectile>();
+        pistolProjectile.BaseDmg = projectileDmg;
+        
+        projectile.transform.position = transform.position;
+        projectile.SetActive(true);
+        
+        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.AddForce(direction * projectileSpeed, ForceMode2D.Impulse);
+        }
+    }
+    
+    private async UniTaskVoid Cooldown(float cooldown)
+    {
+        await UniTask.Delay((int)cooldown * 1000);
+        _canShoot = true;
     }
 
     // private void Fire(GameObject projectile)

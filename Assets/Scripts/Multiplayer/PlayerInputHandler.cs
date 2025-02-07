@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerController _playerController;
+    private PlayerWeaponHandler _playerWeaponHandler;
     private PlayerConfiguration _playerConfig;
     private BubbleGrabber _bubbleGrabber;
     
@@ -19,6 +20,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
+        _playerWeaponHandler = GetComponentInChildren<PlayerWeaponHandler>();
         _bubbleGrabber = GetComponentInChildren<BubbleGrabber>();
     }
 
@@ -64,5 +66,6 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnRotate(InputAction.CallbackContext ctx)
     {
         _playerController.OnRotate(ctx.ReadValue<Vector2>());
+        _playerWeaponHandler.OnShoot(ctx.ReadValue<Vector2>());
     }
 }
