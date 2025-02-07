@@ -61,6 +61,7 @@ public class PlayerSetupController : MonoBehaviour
             _colorSelected = colorButtons[_currentColorID].colors.normalColor;
             var config = PlayerConfigurationManager.Instance.GetPlayerConfig(_playerIndex);
             config.SetColor(_colorSelected);
+            _navigationAction.Disable();
         }
         else
             ReadyPlayer();
@@ -89,8 +90,6 @@ public class PlayerSetupController : MonoBehaviour
 
         for (int i = 0; i < colorButtons.Count; i++)
         {
-            Debug.Log(colorButtons[i].name);
-            Debug.Log(defaultPlayers[i]);
             ChangeButtonColor(colorButtons[i], defaultPlayers[i].DefaultColor);
         }
     }
@@ -101,7 +100,7 @@ public class PlayerSetupController : MonoBehaviour
         cb.normalColor = newColor;
         cb.highlightedColor = newColor;
         cb.pressedColor = Color.white;
-        cb.selectedColor = new Color(newColor.r, newColor.g, newColor.b, 0.5f);
+        cb.selectedColor = new Color(newColor.r, newColor.g, newColor.b, 0.2f);
         button.colors = cb;
     }
 

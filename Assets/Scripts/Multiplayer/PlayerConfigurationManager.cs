@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,7 +16,7 @@ public class PlayerConfigurationManager : MonoBehaviour
     public int MaxPlayers => maxPlayers;
     
     
-    [SerializeField] private List<Color> _playerColors = new List<Color>();
+    [SerializeField] private List<Color> playerColors = new List<Color>();
     
     private List<PlayerDefaultSetting> _defaultPlayers;
     public List<PlayerDefaultSetting> DefaultPlayers => _defaultPlayers;
@@ -48,10 +47,9 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         //TODO: check for errors
         _defaultPlayers = new List<PlayerDefaultSetting>();
-        for (int i = 0; i < _playerColors.Count; i++)
+        for (int i = 0; i < playerColors.Count; i++)
         {
-            _defaultPlayers.Add(new PlayerDefaultSetting(_playerColors[i]));
-            Debug.Log(_defaultPlayers[i].DefaultColor);
+            _defaultPlayers.Add(new PlayerDefaultSetting(playerColors[i]));
         }
     }
 
@@ -99,7 +97,7 @@ public class PlayerConfiguration
 {
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
-    public Color PlayerColor { get; set; }
+    public Color PlayerColor { get; private set; }
     public string ControlScheme { get; set; }
     public bool IsReady { get; set; }
 

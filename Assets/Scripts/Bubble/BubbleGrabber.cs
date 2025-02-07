@@ -52,7 +52,7 @@ public class BubbleGrabber : MonoBehaviour
         GetComponentInParent<PlayerStats>().SetCarryingBubble(false);
         
         _bubbleCarried.BubbleCancellationTokenSource = new CancellationTokenSource();
-        _bubbleCarried.ThrowTask(direction, _bubbleCarried.transform.parent?.gameObject, _bubbleCarried.BubbleCancellationTokenSource).Forget();
+        _bubbleCarried.ThrowTask(direction, _bubbleCarried.BubbleCancellationTokenSource).Forget();
         
         _bubbleCarried.isGrabbed = false;
         _bubbleCarried.isGrabbable = true;

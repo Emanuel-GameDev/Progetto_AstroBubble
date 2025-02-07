@@ -11,7 +11,7 @@ public class Bubble : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private int time = 2;
 
-    [SerializeField] private float health = 100f;
+    [SerializeField] private float health;
     [SerializeField] private float maxHealth = 100f;
 
     [SerializeField] private AnimationCurve throwCurve;
@@ -21,9 +21,10 @@ public class Bubble : MonoBehaviour
     private void Start()
     {
         _bubbleDestroyedEvent = new BubbleDestroyedEvent();
+        health = maxHealth;
     }
 
-    public async UniTask ThrowTask(Vector2 direction, GameObject player, CancellationTokenSource token)
+    public async UniTask ThrowTask(Vector2 direction, CancellationTokenSource token)
     {
         if (!isGrabbed) return;
         
