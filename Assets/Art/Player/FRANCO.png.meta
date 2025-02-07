@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 81a82ce9bd34d9a478e49fa9688560d6
+guid: 86d8dca601e9f724b9fbf35f7d00894d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6981641179300335697
-    second: sprite_2_0
+      213: -2208604593154335515
+    second: FRANCO_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprite_2_0
+      name: FRANCO_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 27
+        width: 25
         height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: faf6096765a3c1f90800000000000000
-      internalID: -6981641179300335697
+      spriteID: 5ec5dbff2d57951e0800000000000000
+      internalID: -2208604593154335515
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sprite_2_0: -6981641179300335697
+      FRANCO_0: -2208604593154335515
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
