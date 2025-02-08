@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
@@ -87,6 +88,7 @@ public class PlayerConfiguration
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public Color PlayerColor { get; private set; }
+    public BaseWeapon StartingWeapon { get; private set; }
     public string ControlScheme { get; set; }
     public bool IsReady { get; set; }
 
@@ -101,16 +103,41 @@ public class PlayerConfiguration
     {
         PlayerColor = color;
     }
+
+    public void SetStartingWeapon(BaseWeapon weapon)
+    {
+        StartingWeapon = weapon;
+    }
 }
 
 [Serializable]
 public class PlayerDefaultSetting
 {
-    public Color DefaultColor;
+    public Color defaultColor;
+
+    [SerializeField] private GameObject defaultWeaponPrefab;
+    public BaseWeapon DefaultWeapon
+    {
+        get
+        {
+            if (defaultWeaponPrefab == null)
+            {
+                Debug.LogError("The prefab you are trying to access doesn't exist");
+                return null;
+            }
+            else if (defaultWeaponPrefab.GetComponent<BaseWeapon>() == null)
+            {
+                Debug.LogError("The prefab you are trying to access doesn't contain BaseWeapon Component");
+                return null;
+            }
+            
+            return defaultWeaponPrefab.GetComponent<BaseWeapon>();
+        }
+    }
 
     public PlayerDefaultSetting(Color playerColor)
     {
-        DefaultColor = playerColor;
+        defaultColor = playerColor;
     }
     //weapon
 }

@@ -119,7 +119,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxPlayers: 1
   defaultSettings:
-  - DefaultColor: {r: 1, g: 0, b: 0, a: 0.92156863}
-  - DefaultColor: {r: 0, g: 0, b: 1, a: 0.92156863}
-  - DefaultColor: {r: 1, g: 1, b: 0, a: 0.92156863}
-  - DefaultColor: {r: 0.78431374, g: 0, b: 1, a: 0.92156863}
+  - defaultColor: {r: 1, g: 0, b: 0, a: 0.92156863}
+    defaultWeaponPrefab: {fileID: 4561868358412741715, guid: e36737719e068ec4cb643ac5b9ede773, type: 3}
+  - defaultColor: {r: 0, g: 0, b: 1, a: 0.92156863}
+    defaultWeaponPrefab: {fileID: 4561868358412741715, guid: e36737719e068ec4cb643ac5b9ede773, type: 3}
+  - defaultColor: {r: 0.78431374, g: 0, b: 0.972549, a: 0.92156863}
+    defaultWeaponPrefab: {fileID: 4561868358412741715, guid: e36737719e068ec4cb643ac5b9ede773, type: 3}
+  - defaultColor: {r: 1, g: 1, b: 0, a: 0.92156863}
+    defaultWeaponPrefab: {fileID: 4561868358412741715, guid: e36737719e068ec4cb643ac5b9ede773, type: 3}

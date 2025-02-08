@@ -6,10 +6,12 @@ public class PlayerWeaponHandler : MonoBehaviour
 {
     [SerializeField] private List<BaseWeapon> equippedWeapons;
     public List<BaseWeapon> EquippedWeapons => equippedWeapons;
+    
 
     public void EquipWeapon(BaseWeapon weapon)
     {
         equippedWeapons.Add(weapon);
+        weapon.InitializeWeapon(this);
     }
 
     public void OnShoot(Vector2 direction)

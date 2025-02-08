@@ -16,10 +16,17 @@ public abstract class BaseWeapon : MonoBehaviour
     [Header("Audio")]
     [SerializeField] protected AudioClip shootClip;
     
+    protected PlayerWeaponHandler Handler;
+    
     #endregion
 
 
-    public virtual void Shoot(Vector2 direction) { }
+    public virtual void Shoot(Vector2 direction) {}
+
+    public virtual void InitializeWeapon(PlayerWeaponHandler handler)
+    {
+        Handler = handler;
+    }
 
     public virtual void UpgradeTier()
     {

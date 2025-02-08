@@ -19,14 +19,15 @@ public class PlayerSetupController : MonoBehaviour
     [SerializeField]
     private Button readyButton;
 
-    [SerializeField] private List<Button> colorButtons;
+    [SerializeField] private List<GameObject> playerPresets;
 
     private PlayerInput _playerInput;
     private int _playerIndex;
     private InputAction _submitAction;
     private InputAction _navigationAction;
-    private int _currentColorID;
-    private Color _colorSelected; 
+    private int _currentPresetID;
+
+    private bool _presetSelected; 
     
     public void SetPlayerInput(PlayerInput playerInput)
     {
@@ -40,11 +41,10 @@ public class PlayerSetupController : MonoBehaviour
         _navigationAction.performed += OnNavigate;
         _navigationAction.Enable();
         
-        _colorSelected = Color.white;
         SetPlayerTexts();
-        SetupColors();
+        SetupPresets();
     }
-    
+
     private void OnDisable()
     {
         _submitAction.performed -= OnSubmit;
@@ -56,11 +56,20 @@ public class PlayerSetupController : MonoBehaviour
     
     private void OnSubmit(InputAction.CallbackContext obj)
     {
-        if (_colorSelected == Color.white)
+        if (!_presetSelected)
         {
-            _colorSelected = colorButtons[_currentColorID].colors.normalColor;
             var config = PlayerConfigurationManager.Instance.GetPlayerConfig(_playerIndex);
-            config.SetColor(_colorSelected);
+            var defaultWeapons = PlayerConfigurationManager.Instance.DefaultSettings;
+            
+            // Color
+            Color colorSelected = playerPresets[_currentPresetID].GetComponentInChildren<Button>().colors.normalColor;
+            config.SetColor(colorSelected);
+            
+            // Weapon
+            BaseWeapon weaponSelected = defaultWeapons[_currentPresetID].DefaultWeapon;
+            config.SetStartingWeapon(weaponSelected);
+            
+            _presetSelected = true; 
             _navigationAction.Disable();
         }
         else
@@ -69,28 +78,30 @@ public class PlayerSetupController : MonoBehaviour
 
     private void OnNavigate(InputAction.CallbackContext obj)
     {
-        if (!obj.performed || colorButtons.Count == 0) return;
+        if (!obj.performed || playerPresets.Count == 0) return;
         
         Vector2 inputValue = obj.ReadValue<Vector2>();
         if (inputValue.x > 0)
         {
-            _currentColorID = (_currentColorID + 1) % colorButtons.Count;
+            _currentPresetID = (_currentPresetID + 1) % playerPresets.Count;
         }
         else if (inputValue.x < 0)
         {
-            _currentColorID = (_currentColorID - 1 + colorButtons.Count) % colorButtons.Count;
+            _currentPresetID = (_currentPresetID - 1 + playerPresets.Count) % playerPresets.Count;
         }
         
-        colorButtons[_currentColorID].Select();
+        playerPresets[_currentPresetID].GetComponentInChildren<Button>().Select();
     }
-
-    private void SetupColors()
+    
+    private void SetupPresets()
     {
         List<PlayerDefaultSetting> defaultPlayers = PlayerConfigurationManager.Instance.DefaultSettings;
 
-        for (int i = 0; i < colorButtons.Count; i++)
+        // Color + WeaponName
+        for (int i = 0; i < playerPresets.Count; i++)
         {
-            ChangeButtonColor(colorButtons[i], defaultPlayers[i].DefaultColor);
+            ChangeButtonColor(playerPresets[i].GetComponentInChildren<Button>(), defaultPlayers[i].defaultColor);
+            playerPresets[i].GetComponentInChildren<TextMeshProUGUI>().SetText(defaultPlayers[i].DefaultWeapon.name);
         }
     }
     

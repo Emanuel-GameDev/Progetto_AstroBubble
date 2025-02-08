@@ -49,6 +49,7 @@ public class PlayerInputHandler : MonoBehaviour
         
         // Change color in the "Visual" child of the prefab
         _playerController.SetVisualColor(_playerConfig.PlayerColor, true);
+        _playerWeaponHandler.EquipWeapon(_playerConfig.StartingWeapon);
 
     }
 

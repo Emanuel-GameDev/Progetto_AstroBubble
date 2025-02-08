@@ -55,9 +55,10 @@ public class RayPistol : BaseWeapon
     private bool _canShoot = true;
     
     #endregion
-
-    private void Start()
+    
+    public override void InitializeWeapon(PlayerWeaponHandler handler)
     {
+        base.InitializeWeapon(handler);
         InitializePool();
     }
     
@@ -136,7 +137,7 @@ public class RayPistol : BaseWeapon
         RayPistolProjectile pistolProjectile = projectile.GetComponent<RayPistolProjectile>();
         pistolProjectile.BaseDmg = projectileDmg;
         
-        projectile.transform.position = transform.position;
+        projectile.transform.position = Handler.transform.position;
         projectile.SetActive(true);
         
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
