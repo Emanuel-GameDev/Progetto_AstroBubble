@@ -56,6 +56,7 @@ public class PlayerSetupController : MonoBehaviour
     
     private void OnSubmit(InputAction.CallbackContext obj)
     {
+        if (_currentPresetID == 0) return;
         if (!_presetSelected)
         {
             var config = PlayerConfigurationManager.Instance.GetPlayerConfig(_playerIndex);

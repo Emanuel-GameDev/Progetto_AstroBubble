@@ -52,7 +52,7 @@ public class RayPistol : BaseWeapon
     
     #endregion
     
-    private bool _canShoot = true;
+    private bool _inCooldown = false;
     
     #endregion
     
@@ -115,7 +115,8 @@ public class RayPistol : BaseWeapon
     public override void Shoot(Vector2 direction)
     {
         base.Shoot(direction);
-        if (!_canShoot) return;
+        if (_inCooldown) return;
+        Debug.Log("shot");
 
         GameObject projectile = GetPooledProjectile();
         Fire(projectile, direction);
@@ -132,7 +133,7 @@ public class RayPistol : BaseWeapon
     {
         if (!projectile) return;
 
-        _canShoot = false;
+        _inCooldown = true;
 
         RayPistolProjectile pistolProjectile = projectile.GetComponent<RayPistolProjectile>();
         pistolProjectile.BaseDmg = projectileDmg;
@@ -150,7 +151,7 @@ public class RayPistol : BaseWeapon
     private async UniTaskVoid Cooldown(float cooldown)
     {
         await UniTask.Delay((int)cooldown * 1000);
-        _canShoot = true;
+        _inCooldown = false;
     }
 
     // private void Fire(GameObject projectile)

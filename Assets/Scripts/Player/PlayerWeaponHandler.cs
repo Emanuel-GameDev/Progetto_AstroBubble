@@ -6,7 +6,9 @@ public class PlayerWeaponHandler : MonoBehaviour
 {
     [SerializeField] private List<BaseWeapon> equippedWeapons;
     public List<BaseWeapon> EquippedWeapons => equippedWeapons;
-    
+
+    private Vector2 _shootingDirection;
+    private bool _canShoot;
 
     public void EquipWeapon(BaseWeapon weapon)
     {
@@ -14,13 +16,23 @@ public class PlayerWeaponHandler : MonoBehaviour
         weapon.InitializeWeapon(this);
     }
 
-    public void OnShoot(Vector2 direction)
+    public void OnShoot(Vector2 direction, bool mode)
     {
         if (equippedWeapons.Count <= 0) return;
+        if (direction.x != 0 && direction.y != 0) return;
+        
+        _shootingDirection = direction;
+        _canShoot = mode;
+    }
+
+    private void Update()
+    {
+        if (!_canShoot) return;
+        if (_shootingDirection == Vector2.zero) return;
         
         foreach (BaseWeapon weapon in equippedWeapons)
         {
-            weapon.Shoot(direction);   
+            weapon.Shoot(_shootingDirection);   
         }
     }
 }

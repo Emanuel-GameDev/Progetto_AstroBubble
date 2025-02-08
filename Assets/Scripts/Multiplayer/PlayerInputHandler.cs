@@ -40,7 +40,9 @@ public class PlayerInputHandler : MonoBehaviour
         _moveAction.Enable();
         
         _rotateAction = _playerConfig.Input.actions.FindActionMap("Player").FindAction("Rotate");
+        _rotateAction.started += OnRotate;
         _rotateAction.performed += OnRotate;
+        _rotateAction.canceled += OnRotate;
         _rotateAction.Enable();
         
         _throwBubbleAction = _playerConfig.Input.actions.FindActionMap("Player").FindAction("ThrowBubble");
@@ -67,6 +69,14 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnRotate(InputAction.CallbackContext ctx)
     {
         _playerController.OnRotate(ctx.ReadValue<Vector2>());
-        _playerWeaponHandler.OnShoot(ctx.ReadValue<Vector2>());
+
+        if (ctx.started)
+        {
+            _playerWeaponHandler.OnShoot(ctx.ReadValue<Vector2>(), true);
+        }
+        else if (ctx.canceled)
+        {
+            _playerWeaponHandler.OnShoot(ctx.ReadValue<Vector2>(), false);
+        }
     }
 }
