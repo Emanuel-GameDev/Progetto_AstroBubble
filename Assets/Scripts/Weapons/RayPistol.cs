@@ -116,36 +116,31 @@ public class RayPistol : BaseWeapon
     {
         base.Shoot(direction);
         if (_inCooldown) return;
-        Debug.Log("shot");
 
         GameObject projectile = GetPooledProjectile();
+        if (!projectile) return;
+        
         Fire(projectile, direction);
 
         if (tierCounter == 2)
         {
             //StartCoroutine(CooldownGeneric(timeBetweenShoots));
         }
-
+        
+        _inCooldown = true;
         Cooldown(fireRate).Forget();
     }
 
     private void Fire(GameObject projectile, Vector2 direction)
     {
-        if (!projectile) return;
-
-        _inCooldown = true;
-
         RayPistolProjectile pistolProjectile = projectile.GetComponent<RayPistolProjectile>();
-        pistolProjectile.BaseDmg = projectileDmg;
+        if (!pistolProjectile) return;
         
+        pistolProjectile.BaseDmg = projectileDmg;
         projectile.transform.position = Handler.transform.position;
         projectile.SetActive(true);
         
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.AddForce(direction * projectileSpeed, ForceMode2D.Impulse);
-        }
+        pistolProjectile.Fire(direction, projectileSpeed);
     }
     
     private async UniTaskVoid Cooldown(float cooldown)
