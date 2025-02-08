@@ -86,7 +86,7 @@ public class PlayerSetupController : MonoBehaviour
 
     private void SetupColors()
     {
-        List<PlayerDefaultSetting> defaultPlayers = PlayerConfigurationManager.Instance.DefaultPlayers;
+        List<PlayerDefaultSetting> defaultPlayers = PlayerConfigurationManager.Instance.DefaultSettings;
 
         for (int i = 0; i < colorButtons.Count; i++)
         {

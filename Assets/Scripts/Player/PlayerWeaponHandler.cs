@@ -14,6 +14,8 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     public void OnShoot(Vector2 direction)
     {
+        if (equippedWeapons.Count <= 0) return;
+        
         foreach (BaseWeapon weapon in equippedWeapons)
         {
             weapon.Shoot(direction);   

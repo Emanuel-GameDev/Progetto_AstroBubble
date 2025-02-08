@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// This script hold the list of player configuration.
@@ -16,11 +18,8 @@ public class PlayerConfigurationManager : MonoBehaviour
     public int MaxPlayers => maxPlayers;
     
     
-    [SerializeField] private List<Color> playerColors = new List<Color>();
-    
-    private List<PlayerDefaultSetting> _defaultPlayers;
-    public List<PlayerDefaultSetting> DefaultPlayers => _defaultPlayers;
-
+    [SerializeField] private List<PlayerDefaultSetting> defaultSettings;
+    public List<PlayerDefaultSetting> DefaultSettings => defaultSettings;
     
     
     private List<PlayerConfiguration> _playerConfigs;
@@ -41,16 +40,6 @@ public class PlayerConfigurationManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-        //TODO: check for errors
-        _defaultPlayers = new List<PlayerDefaultSetting>();
-        for (int i = 0; i < playerColors.Count; i++)
-        {
-            _defaultPlayers.Add(new PlayerDefaultSetting(playerColors[i]));
-        }
     }
 
     /// <summary>
@@ -114,6 +103,7 @@ public class PlayerConfiguration
     }
 }
 
+[Serializable]
 public class PlayerDefaultSetting
 {
     public Color DefaultColor;
