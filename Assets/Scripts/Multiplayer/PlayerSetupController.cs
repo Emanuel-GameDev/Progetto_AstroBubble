@@ -32,7 +32,7 @@ public class PlayerSetupController : MonoBehaviour
 
     private void Start()
     {
-        _currentPresetID = -1;
+        _currentPresetID = 0;
     }
 
     public void SetPlayerInput(PlayerInput playerInput)

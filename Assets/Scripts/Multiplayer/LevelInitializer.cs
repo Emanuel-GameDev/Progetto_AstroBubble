@@ -12,7 +12,7 @@ public class LevelInitializer : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab;
 
-    private void Start()
+    private void Awake()
     {
         var playerConfigs = PlayerConfigurationManager.Instance.PlayerConfigs.ToArray();
 
