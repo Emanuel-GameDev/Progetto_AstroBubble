@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]
     private GameObject sightObject;
+    public GameObject SightObject => sightObject;
     
     [SerializeField, Tooltip("Offset to the rotation value \n(Ex. 1 * var = distance from player)")]
     private float sightDistanceOffset = .5f;
@@ -65,14 +66,13 @@ public class PlayerController : MonoBehaviour
     /// <param name="rotation"></param>
     public void OnRotate(Vector2 rotation)
     {
-        /*
-         * if (rotation != Vector2.zero
-         * ishooting = true;
-         */
         if (rotation.x != 0 && rotation.y != 0) return;
         
         Vector3 newPosition = new Vector3(rotation.x, rotation.y, 0) * sightDistanceOffset;
         sightObject.transform.localPosition = newPosition;
+        
+        float angle = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        sightObject.transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
     }
     
     

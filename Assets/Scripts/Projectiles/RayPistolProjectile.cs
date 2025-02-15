@@ -12,10 +12,11 @@ public class RayPistolProjectile : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Fire(Vector2 direction, float speed)
+    public void Fire(Vector2 direction, float speed, Quaternion rotation)
     {
         if (_rb == null) return;
         
+        transform.rotation = rotation;
         _rb.linearVelocity = direction * speed;
     }
 }

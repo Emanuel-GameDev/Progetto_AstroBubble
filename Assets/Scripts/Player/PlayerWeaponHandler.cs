@@ -9,6 +9,12 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private Vector2 _shootingDirection;
     private bool _canShoot;
+    private GameObject _sight;
+
+    private void Start()
+    {
+        _sight = GetComponentInParent<PlayerController>().SightObject;
+    }
 
     public void EquipWeapon(BaseWeapon weapon)
     {
@@ -32,7 +38,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         
         foreach (BaseWeapon weapon in equippedWeapons)
         {
-            weapon.Shoot(_shootingDirection);   
+            weapon.Shoot(_shootingDirection, _sight.transform);
         }
     }
 }

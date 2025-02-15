@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -27,8 +28,13 @@ public class PlayerSetupController : MonoBehaviour
     private InputAction _navigationAction;
     private int _currentPresetID;
 
-    private bool _presetSelected; 
-    
+    private bool _presetSelected;
+
+    private void Start()
+    {
+        _currentPresetID = -1;
+    }
+
     public void SetPlayerInput(PlayerInput playerInput)
     {
         _playerInput = playerInput;
@@ -56,7 +62,7 @@ public class PlayerSetupController : MonoBehaviour
     
     private void OnSubmit(InputAction.CallbackContext obj)
     {
-        if (_currentPresetID == 0) return;
+        if (_currentPresetID == -1) return;
         if (!_presetSelected)
         {
             var config = PlayerConfigurationManager.Instance.GetPlayerConfig(_playerIndex);

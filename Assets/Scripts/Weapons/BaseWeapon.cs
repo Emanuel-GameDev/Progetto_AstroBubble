@@ -21,7 +21,7 @@ public abstract class BaseWeapon : MonoBehaviour
     #endregion
 
 
-    public virtual void Shoot(Vector2 direction) {}
+    public virtual void Shoot(Vector2 direction, Transform sight) {}
 
     public virtual void InitializeWeapon(PlayerWeaponHandler handler)
     {

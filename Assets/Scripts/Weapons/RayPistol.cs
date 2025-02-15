@@ -52,7 +52,7 @@ public class RayPistol : BaseWeapon
     
     #endregion
     
-    private bool _inCooldown = false;
+    private bool _inCooldown;
     
     #endregion
     
@@ -60,6 +60,7 @@ public class RayPistol : BaseWeapon
     {
         base.InitializeWeapon(handler);
         InitializePool();
+        _inCooldown = false;
     }
     
     #region Projectile Functions
@@ -112,15 +113,15 @@ public class RayPistol : BaseWeapon
         }
     }
 
-    public override void Shoot(Vector2 direction)
+    public override void Shoot(Vector2 direction, Transform sight)
     {
-        base.Shoot(direction);
+        base.Shoot(direction, sight);
         if (_inCooldown) return;
 
         GameObject projectile = GetPooledProjectile();
         if (!projectile) return;
-        
-        Fire(projectile, direction);
+
+        Fire(projectile, direction, sight.rotation);
 
         if (tierCounter == 2)
         {
@@ -131,7 +132,7 @@ public class RayPistol : BaseWeapon
         Cooldown(fireRate).Forget();
     }
 
-    private void Fire(GameObject projectile, Vector2 direction)
+    private void Fire(GameObject projectile, Vector2 direction, Quaternion rotation)
     {
         RayPistolProjectile pistolProjectile = projectile.GetComponent<RayPistolProjectile>();
         if (!pistolProjectile) return;
@@ -140,7 +141,7 @@ public class RayPistol : BaseWeapon
         projectile.transform.position = Handler.transform.position;
         projectile.SetActive(true);
         
-        pistolProjectile.Fire(direction, projectileSpeed);
+        pistolProjectile.Fire(direction, projectileSpeed, rotation);
     }
     
     private async UniTaskVoid Cooldown(float cooldown)
