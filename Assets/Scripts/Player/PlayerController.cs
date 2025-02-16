@@ -66,8 +66,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="rotation"></param>
     public void OnRotate(Vector2 rotation)
     {
-        if (rotation.x != 0 && rotation.y != 0) return;
-        
         Vector3 newPosition = new Vector3(rotation.x, rotation.y, 0) * sightDistanceOffset;
         sightObject.transform.localPosition = newPosition;
         

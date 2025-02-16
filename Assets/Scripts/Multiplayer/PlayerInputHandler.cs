@@ -17,11 +17,15 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction _rotateAction;
     private InputAction _throwBubbleAction;
 
+    private Vector2 _lastDirection;
+    
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
         _playerWeaponHandler = GetComponentInChildren<PlayerWeaponHandler>();
         _bubbleGrabber = GetComponentInChildren<BubbleGrabber>();
+        
+        _lastDirection = Vector2.zero;  
     }
 
 
@@ -40,7 +44,6 @@ public class PlayerInputHandler : MonoBehaviour
         _moveAction.Enable();
         
         _rotateAction = _playerConfig.Input.actions.FindActionMap("Player").FindAction("Rotate");
-        _rotateAction.started += OnRotate;
         _rotateAction.performed += OnRotate;
         _rotateAction.canceled += OnRotate;
         _rotateAction.Enable();
@@ -68,15 +71,24 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnRotate(InputAction.CallbackContext ctx)
     {
-        _playerController.OnRotate(ctx.ReadValue<Vector2>());
+        Vector2 validDirection = GetValidDirection(ctx.ReadValue<Vector2>());
+            
+        _playerController.OnRotate(validDirection);
+        _playerWeaponHandler.OnShoot(validDirection);
+        
+        _lastDirection = validDirection;
+    }
 
-        if (ctx.started)
-        {
-            _playerWeaponHandler.OnShoot(ctx.ReadValue<Vector2>(), true);
-        }
-        else if (ctx.canceled)
-        {
-            _playerWeaponHandler.OnShoot(ctx.ReadValue<Vector2>(), false);
-        }
+    private Vector2 GetValidDirection(Vector2 newDir)
+    {
+        if (newDir == Vector2.zero) return Vector2.zero;
+        
+        float x = newDir.x == _lastDirection.x ? 0 : newDir.x;
+        float y = newDir.y == _lastDirection.y ? 0 : newDir.y;
+
+        if ((x,y) == (0,0))
+            return _lastDirection;
+        
+        return new Vector2(x, y);
     }
 }

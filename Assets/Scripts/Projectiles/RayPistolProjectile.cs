@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class RayPistolProjectile : MonoBehaviour
@@ -14,7 +13,7 @@ public class RayPistolProjectile : MonoBehaviour
 
     public void Fire(Vector2 direction, float speed, Quaternion rotation)
     {
-        if (_rb == null) return;
+        if (!_rb) return;
         
         transform.rotation = rotation;
         _rb.linearVelocity = direction * speed;

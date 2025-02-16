@@ -10,7 +10,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public string tier1Description;
     public string tier2Description;
     public Sprite weaponSprite;
-    public int tierCounter = 0;
+    public int tierCounter;
     
     
     [Header("Audio")]
