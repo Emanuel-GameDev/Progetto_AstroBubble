@@ -148,48 +148,4 @@ public class RayPistol : BaseWeapon
         await UniTask.Delay((int)cooldown * 1000);
         _inCooldown = false;
     }
-
-    // private void Fire(GameObject projectile)
-    // {
-    //     if (projectile != null)
-    //     {
-    //         _canShoot = false;
-    //
-    //         projectile.GetComponent<RayPistolProjectile>()._baseDmg = projectileDmg;
-    //         projectile.transform.position = transform.position;
-    //
-    //         if (playerHandler != null && projectile != null)
-    //         {
-    //             var sightRot = playerHandler.sight.transform.localRotation;
-    //             projectile.transform.localRotation = sightRot;
-    //         }
-    //
-    //         projectile.SetActive(true);
-    //
-    //         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-    //         if (rb != null)
-    //         {
-    //             //Debug.Log("SHOOT " + projectile.transform.forward);
-    //             var sightObjectRef = playerHandler.sight.gameObject.transform.GetChild(0).position;
-    //             rb.AddForce((sightObjectRef - projectile.transform.position) * projectileSpeed, ForceMode2D.Impulse);
-    //         }
-    //
-    //     }
-    //
-    // }
-    //
-    // IEnumerator CooldownShooting()
-    // {
-    //     yield return new WaitForSeconds(fireRate);
-    //
-    //     _canShoot = true;
-    // }
-    //
-    // IEnumerator CooldownGeneric(float num)
-    // {
-    //     yield return new WaitForSeconds(num);
-    //
-    //     GameObject projectile2 = GetPooledProjectile();
-    //     Fire(projectile2);
-    // }
 }

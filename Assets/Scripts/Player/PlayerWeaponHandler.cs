@@ -7,15 +7,12 @@ public class PlayerWeaponHandler : MonoBehaviour
     public List<BaseWeapon> EquippedWeapons => equippedWeapons;
 
     private Vector2 _shootingDirection;
-    private Vector2 _lastShootingDirection;
-    private List<Vector2> _activeDirections;
     private bool _canShoot;
     private GameObject _sight;
 
     private void Start()
     {
         _sight = GetComponentInParent<PlayerController>().SightObject;
-        _activeDirections = new List<Vector2>();
     }
 
     public void EquipWeapon(BaseWeapon weapon)
@@ -48,10 +45,5 @@ public class PlayerWeaponHandler : MonoBehaviour
         {
             weapon.Shoot(_shootingDirection, _sight.transform);
         }
-    }
-    
-    private bool IsValidDirection(Vector2 direction)
-    {
-        return (direction == Vector2.up || direction == Vector2.down || direction == Vector2.left || direction == Vector2.right);
     }
 }
